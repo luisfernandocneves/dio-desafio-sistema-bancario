@@ -6,7 +6,7 @@ class Conta:
         self.numero = numero
         self.agencia = "0001"
         self.cliente = cliente
-        self.historico = ""
+        self.historico = Historico()
 
     @property
     def saldo(self):
@@ -32,11 +32,18 @@ class Conta:
     def nova_conta(cls, cliente, numero):
         return cls(cliente, numero)
 
-    def sacar(self, valor):
-        pass
-
+    def sacar(self, valor):       
+        if float(valor) <= self.saldo and float(valor) > 0:
+            self.saldo -= float(valor)
+            return True
+        else:
+            return False
     def depositar(self, valor):
-        pass
+        if float(valor) > 0:
+            self.saldo +=  float(valor)            
+            return True
+        else:                
+            return False
 
 class ContaCorrente(Conta):
     def __init__(self, cliente, numero, limite=500, limite_saques=3):
